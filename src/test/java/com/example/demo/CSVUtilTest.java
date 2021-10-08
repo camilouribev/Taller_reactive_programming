@@ -41,6 +41,25 @@ public class CSVUtilTest {
         assert listFilter.size() == 322;
     }
 
+    @Test
+    void stream_filtrarJugadoresMayoresA34(){
+        List<Player> list = CsvUtilFile.getPlayers();
+        Map<String, List<Player>> listFilter = list.parallelStream()
+                .filter(player -> player.age >= 34)
+                .filter(player ->player.club.equals("Cruzeiro"))
+                .map(player -> {
+                    player.name = player.name.toUpperCase(Locale.ROOT);
+                    return player;
+                })
+                .distinct()
+                .collect(Collectors.groupingBy(Player::getName));
+
+            listFilter.forEach((s, players)->players.stream().forEach(player -> System.out.println(player.name+ " age:"+ player.age)));
+
+        assert listFilter.size()== 8;
+
+    }
+
 
     @Test
     void reactive_filtrarJugadoresMayoresA35(){
@@ -62,6 +81,8 @@ public class CSVUtilTest {
 
         assert listFilter.block().size() == 322;
     }
+
+
 
 
 
