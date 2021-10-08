@@ -108,7 +108,7 @@ public class CSVUtilTest {
     }
 
     @Test
-    void reactive_filtrarNacionalidad() {
+    void reactive_filtrarNacionalidadRanking() {
         List<Player> list = CsvUtilFile.getPlayers();
         Flux<Player> listFlux = Flux.fromStream(list.parallelStream()).cache();
         System.out.println(NATIONAL.toUpperCase(Locale.ROOT));
